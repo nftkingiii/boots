@@ -1,0 +1,33 @@
+=== repo: ethereumfighter ===
+commit: e7c50a0f9ec5130ab787acfec3ec4fabd50020c3
+=== README steps (Getting Started): bun install && bun dev (at repo root) ===
+--- root contents:
+README.md
+backend
+evm
+frontend
+--- cmd: bun install
+error: Bun could not find a package.json file to install from
+note: Run "bun init" to initialize a project
+exit=1
+--- cmd: bun dev
+error: Script not found "dev"
+exit=1
+--- fix attempt: README omits cd; frontend/wagmi-demo is the main Next.js app per README architecture section
+--- cmd: cd frontend/wagmi-demo && bun install
++ remark-gfm@4.0.1
++ typescript@5.1.6
++ viem@2.25.0
++ wagmi@2.14.16
+1275 packages installed [8.13s]
+exit=0
+--- cmd: bun dev (15s startup check)
+$ next -p 4000
+  ▲ Next.js 14.2.26
+  - Local:        http://localhost:4000
+ ✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+exit=124 (124=stayed up)

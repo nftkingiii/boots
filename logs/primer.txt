@@ -1,0 +1,65 @@
+=== repo: primer ===
+commit: 3e9fc66a5eedcbc548ae957f6429430229a9fe88
+=== README steps: pnpm install; cd apps/backend && pnpm dev; cd apps/webapp && pnpm dev; cd apps/extension && pnpm build ===
+--- cmd: pnpm install
++ ts-loader 9.5.2
++ typescript 5.5.4
++ webpack 5.101.2
++ webpack-cli 5.1.4
+Done in 15.7s
+exit=0
+--- cmd: cd apps/backend && pnpm dev (15s startup check)
+> stablecart-backend@1.0.0 dev /root/work/boots/repos/primer/apps/backend
+> nodemon src/server.ts
+[33m[nodemon] 3.1.10[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: ts,json[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+✅ Database tables initialized successfully
+✅ Database initialized, creating service...
+✅ On Ramp routes added
+exit=124
+--- cmd: cd apps/webapp && pnpm dev (20s startup check)
+> stablecart-webapp@0.1.0 dev /root/work/boots/repos/primer/apps/webapp
+> next dev
+ ⚠ Warning: Found multiple lockfiles. Selecting /root/work/boots/repos/primer/pnpm-lock.yaml.
+   Consider removing the lockfiles at:
+   * /root/work/boots/repos/primer/apps/webapp/package-lock.json
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://169.254.0.21:3000
+exit=124
+--- cmd: cd apps/extension && pnpm build
+  │   Failed to resolve @amazon-crypto-checkout/ui@workspace:*
+  ╰─▶ Failed to resolve dependency: Cannot resolve package from workspace
+      because workspace packages were not loaded into the resolver
+[WARN] The install that runs before scripts failed, so your node_modules may be out of sync with your lockfile. Set "verifyDepsBeforeRun: false" to skip this install.
+$ webpack --mode=production
+sh: 1: webpack: not found
+[ELIFECYCLE] Command failed with exit code 127.
+exit=127
+--- investigation: apps/extension/package.json does not exist
+backend
+extension
+package.json
+webapp
+--- fix attempt: run documented build from repo root where package.json/webpack.config.js live
+--- cmd: pnpm build (at root)
+  modules by path ./node_modules/.pnpm/scheduler@0.23.2/node_modules/scheduler/ 4.33 KiB
+    ./node_modules/.pnpm/scheduler@0.23.2/node_modules/scheduler/index.js 198 bytes [built] [code generated]
+    ./node_modules/.pnpm/scheduler@0.23.2/node_modules/scheduler/cjs/scheduler.pro...(truncated) 4.14 KiB [built] [code generated]
+modules by path ./apps/extension/src/ 114 KiB
+  ./apps/extension/src/content.ts + 3 modules 96.3 KiB [built] [code generated]
+  ./apps/extension/src/popup.tsx 16.1 KiB [built] [code generated]
+  ./apps/extension/src/background.ts 1.61 KiB [built] [code generated]
+webpack 5.101.2 compiled successfully in 3868 ms
+exit=0
+--- extension dist output:
+background.js
+content.js
+icons
+manifest.json
+popup.html
+popup.js
+popup.js.LICENSE.txt

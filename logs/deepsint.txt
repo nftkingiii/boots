@@ -1,0 +1,53 @@
+=== repo: deepsint ===
+commit: 4966afa8e99fb0ecf73c0e5964c3dcc95ee0974d
+=== README steps: pip install streamlit; pip install blackbird-osint; streamlit run main.py ===
+--- cmd: pip install streamlit blackbird-osint
+ERROR: Could not find a version that satisfies the requirement blackbird-osint (from versions: none)
+[notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[notice] To update, run: pip install --upgrade pip
+ERROR: No matching distribution found for blackbird-osint
+exit=0
+--- cmd: pip install streamlit
+[notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[notice] To update, run: pip install --upgrade pip
+exit=0
+--- cmd: git clone https://github.com/p1ngul1n0/blackbird (README option 2, into sibling dir)
+exit=0
+--- cmd: pip install -r blackbird/requirements.txt
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[notice] To update, run: pip install --upgrade pip
+exit=0
+--- blackbird on PATH?
+Dockerfile
+README.md
+assets
+blackbird.py
+data
+docs
+requirements.txt
+src
+tests
+--- run_blackbird.sh contents shown above; blackbird not on PATH after documented source install
+--- cmd: python test_blackbird.py
+python: can't open file '/root/work/boots/repos/deepsint/test_blackbird.py': [Errno 2] No such file or directory
+exit=2
+--- cmd: streamlit run main.py (timeout 25s, headless check)
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+2026-10-26 08:17:25.472 Uvicorn server started on :::8501
+  You can now view your Streamlit app in your browser.
+  Local URL: http://localhost:8501
+  Network URL: http://169.254.0.21:8501
+  External URL: http://35.252.77.3:8501
+  Stopping...
+exit=124 (124=timeout=server stayed up)
+--- fix attempt: place blackbird inside repo dir as run_blackbird.sh expects ($SCRIPT_DIR/blackbird/blackbird.py)
+--- cmd: bash run_blackbird.sh octocat (end-to-end search)
+Found local Blackbird installation
+Searching for username: octocat
+    ▄▄▄▄    ██▓    ▄▄▄       ▄████▄   ██ ▄█▀ ▄▄▄▄    ██▓ ██▀███  ▓█████▄ 
+    ▓█████▄ ▓██▒   ▒████▄    ▒██▀ ▀█   ██▄█▒ ▓█████▄ ▓██▒▓██ ▒ ██▒▒██▀ ██▌
+    ▒██▒ ▄██▒██░   ▒██  ▀█▄  ▒▓█    ▄ ▓███▄░ ▒██▒ ▄██▒██▒▓██ ░▄█ ▒░██   █▌
+    ▒██░█▀  ▒██░   ░██▄▄▄▄██ ▒▓▓▄ ▄██▒▓██ █▄ ▒██░█▀  ░██░▒██▀▀█▄  ░▓█▄   ▌
+    ░▓█  ▀█▓░██████▒▓█   ▓██▒▒ ▓███▀ ░▒██▒ █▄░▓█  ▀█▓░██░░██▓ ▒██▒░▒████▓ 
+exit=1

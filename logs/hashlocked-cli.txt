@@ -1,0 +1,26 @@
+=== repo: hashlocked-cli ===
+commit: 17ecc7f4423a4bd3ccaab4b5fee95c64d8755e9d
+=== README steps: node --version; git --version; create .env (example given); npm run maker:create ===
+--- cmd: create .env with README placeholder values
+written
+--- cmd: npm run maker:create (no npm install is documented in README)
+> evm-btc-atomic-swap@1.0.0 maker:create
+> hardhat run evm/scripts/create-order-immediate.ts --network sepolia
+sh: 1: hardhat: not found
+exit=127
+--- fix attempt: npm install (undocumented but required)
+npm warn allow-scripts   classic-level@1.4.1 (install: node-gyp-build)
+npm warn allow-scripts   secp256k1@4.0.5 (install: node-gyp-build || exit 0)
+npm warn allow-scripts
+npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
+exit=0
+--- cmd: npm run maker:create (with README placeholder .env)
+> evm-btc-atomic-swap@1.0.0 maker:create
+> hardhat run evm/scripts/create-order-immediate.ts --network sepolia
+Error HH8: There's one or more errors in your config file:
+  * Invalid account: #0 for network: sepolia - private key too short, expected 32 bytes
+  * Invalid account: #0 for network: mainnet - private key too short, expected 32 bytes
+  * Invalid account: #0 for network: polygon - private key too short, expected 32 bytes
+  * Invalid account: #0 for network: bsc - private key too short, expected 32 bytes
+To learn more about Hardhat's configuration, please go to https://v2.hardhat.org/config/
+exit=1

@@ -1,0 +1,72 @@
+=== repo: livestakes ===
+commit: 6bc21c4411a612592867fe3d09182b6ba95a77ea
+=== README steps: make setup (install + start database); make dev ===
+--- cmd: make setup
++ tailwindcss 3.4.19
++ tsx 4.23.15
++ typescript 5.9.3
+Error: ERR_PNPM_IGNORED_BUILDS
+  × installing dependencies
+  ╰─▶ Ignored build scripts: @reown/appkit@1.8.19, bigint-buffer@1.1.5,
+      bufferutil@4.1.0, es5-ext@0.10.64, esbuild@0.28.2, keccak@3.0.4,
+      sharp@0.33.2, sharp@0.34.5, unrs-resolver@1.12.2, utf-8-validate@5.0.10,
+      utf-8-validate@6.0.6
+  help: Run "pnpm approve-builds" to pick which dependencies should be allowed
+        to run scripts.
+make: *** [Makefile:34: install] Error 1
+exit=2
+--- fix attempt: pnpm config set strict-dep-builds false (pnpm 12 errors on ignored build scripts)
+--- cmd: make setup (retry)
++ ts-node 10.9.2
++ typescript 5.9.3
+Done in 846ms using pnpm v12.15.0
+[0;32mAll dependencies installed![0m 
+[0;34mStarting database container...[0m 
+docker-compose up -d livestakesmdb
+The Compose file './docker-compose.yml' is invalid because:
+services.livestakes-app.build contains unsupported option: 'tags'
+make: *** [Makefile:174: db-start] Error 1
+exit=2
+--- env note: docker-compose v1 lacks build.tags support; using compose v2 shim for the Makefile's docker-compose calls
+--- cmd: make db-start (via compose v2 shim)
+ Volume "livestakes_livestakes-db-data"  Created
+ Container livestakes-db  Creating
+ Container livestakes-db  Created
+ Container livestakes-db  Starting
+ Container livestakes-db  Started
+exit=0
+--- cmd: make dev (30s startup check)
+[1]       syscall: 'connect',
+[1]       address: '::1',
+[1]       port: 5432
+[1]     },
+[1]     Error: connect ECONNREFUSED 127.0.0.1:5432
+[1]         at createConnectionError (node:net:1905:14)
+[1]         at afterConnectMultiple (node:net:1935:16) {
+[1]       errno: -111,
+[1]       code: 'ECONNREFUSED',
+[1]       syscall: 'connect',
+[1]       address: '127.0.0.1',
+[1]       port: 5432
+[1]     }
+[1]   ]
+[1] }
+[1] [31m[nodemon] app crashed - waiting for file changes before starting...[39m
+make: *** [Makefile:139: all-dev] Terminated
+[1] npm run server exited with code SIGTERM
+[0] [?25h
+[0] npm run dev exited with code SIGTERM
+exit=124 (124=stayed up)
+--- src/.env.example shown above (frontend env; no server env documented)
+--- fix attempt: POSTGRES_PORT=5489 POSTGRES_USER=root POSTGRES_PASSWORD=root POSTGRES_DB=livestakes make dev (matching compose service)
+--- cmd: make dev (30s)
+[0]    - Local:        http://localhost:3000
+[0]  ✓ Ready in 1798ms
+[1] Migration failed: error: relation "livestreams" does not exist
+[1]   severity: 'ERROR',
+[1] Migration process failed: error: relation "livestreams" does not exist
+[1]   severity: 'ERROR',
+[1] Database initialization failed: error: relation "livestreams" does not exist
+[1]   severity: 'ERROR',
+[1] [31m[nodemon] app crashed - waiting for file changes before starting...[39m
+exit=124

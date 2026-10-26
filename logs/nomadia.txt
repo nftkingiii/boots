@@ -1,0 +1,59 @@
+=== repo: nomadia ===
+commit: 6598f8ce23e42465f5ea68f4ae08b740f7481bfe
+=== README steps: cp .env.example .env; docker compose up -d; pnpm install; pnpm db:push; pnpm dev ===
+--- .env.example contents:
+APP_ID="INSERT_APPID"
+DEV_PORTAL_API_KEY="APIKEY"
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=secret
+DATABASE_URL="postgresql://nomadia:nomadia@localhost:35432/nomadia"
+HMAC_SECRET_KEY=secret
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=DUMMY_CLOUDINARY_CLOUD_NAME
+CLOUDINARY_UPLOAD_PRESET=DUMMY_CLOUDINARY_UPLOAD_PRESET
+CLOUDINARY_API_KEY=DUMMY_CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET=DUMMY_CLOUDINARY_API_SECRET
+# Google Maps
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=DUMMY_GOOGLE_MAPS_API_KEY--- cmd: cp .env.example .env
+exit=0
+--- cmd: docker compose up -d
+ Volume "nomadia_postgres"  Created
+ Container nomadia-postgres-1  Creating
+ Container nomadia-postgres-1  Created
+ Container nomadia-postgres-1  Starting
+ Container nomadia-postgres-1  Started
+exit=0
+--- cmd: pnpm install
+  × installing dependencies
+  ╰─▶ Ignored build scripts: esbuild@0.18.20, esbuild@0.19.12, esbuild@0.25.2
+  help: Run "pnpm approve-builds" to pick which dependencies should be allowed
+        to run scripts.
+exit=1
+--- cmd: pnpm db:push
+$ drizzle-kit push
+No config path provided, using default 'drizzle.config.ts'
+Reading config file '/root/work/boots/repos/nomadia/drizzle.config.ts'
+Using 'pg' driver for database querying
+[⣷] Pulling schema from database...
+[2K[1G[✓] Pulling schema from database...
+[✓] Changes applied
+exit=0
+--- cmd: pnpm dev (25s startup check)
+$ next dev
+  ▲ Next.js 14.2.6
+  - Local:        http://localhost:3000
+  - Environments: .env
+ ✓ Starting...
+ ✓ Ready in 1173ms
+[?25h
+exit=124 (124=stayed up)
+--- re-run for accurate exit code: pnpm install
+exit=1
+Error: ERR_PNPM_IGNORED_BUILDS
+  × installing dependencies
+  ╰─▶ Ignored build scripts: esbuild@0.18.20, esbuild@0.19.12, esbuild@0.25.2
+  help: Run "pnpm approve-builds" to pick which dependencies should be allowed
+        to run scripts.
+--- verification: dev server HTTP check
+ ✓ Ready in 1345ms
+HTTP status printed above

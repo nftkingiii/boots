@@ -1,0 +1,19 @@
+=== repo: decycle-garbage-detector ===
+commit: 1ea7c216e4e70457e435131a95f50edd1388f05a
+=== README steps: pip install -r requirements.txt; python garbage_classifier.py ===
+--- cmd: pip install -r requirements.txt
+[notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[notice] To update, run: pip install --upgrade pip
+exit=1
+--- cmd: python garbage_classifier.py (30s)
+Traceback (most recent call last):
+  File "/root/work/boots/repos/decycle-garbage-detector/garbage_classifier.py", line 1, in <module>
+    from tensorflow.keras.models import Sequential
+ModuleNotFoundError: No module named 'tensorflow'
+exit=1
+--- re-run with full output to capture the real error
+exit=1
+ERROR: Could not install packages due to an OSError: [Errno 28] No space left on device
+[notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[notice] To update, run: pip install --upgrade pip
+/dev/root        30G   27G  3.1G  90% /

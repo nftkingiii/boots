@@ -1,0 +1,37 @@
+=== repo: proprio ===
+commit: 6be3180e139b47924e442d0122af32ea840cd218
+=== README steps: pip install -r requirements.txt; python main.py (everything fake) ===
+--- cmd: pip install -r requirements.txt
+exit=1
+ERROR: Could not install packages due to an OSError: [Errno 28] No space left on device
+--- Logging error ---
+--- env note: first attempt failed with ENOSPC; purged caches, retrying
+--- cmd: pip install -r requirements.txt (retry)
+exit=1
+ERROR: Could not install packages due to an OSError: [Errno 28] No space left on device
+--- Logging error ---
+/dev/root        30G   27G  3.0G  90% /
+--- cmd: pip install --no-cache-dir -r requirements.txt (retry 2)
+exit=0
+[notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[notice] To update, run: pip install --upgrade pip
+/dev/root        30G   25G  5.3G  83% /
+--- cmd: python main.py (everything fake; 30s run, dashboard check)
+--- dashboard curl:
+GET http://localhost:8642 -> 200
+--- output head:
+[main] stream:fake  perception:fake  guidance:fake  voice:fake
+[main] dashboard at http://localhost:8642/
+[main] target: 'mug'
+[guide] says: looking
+[guide] says: found_it
+[guide] says: right
+[guide] guiding  right 20  down 7  forward 20  dist 29 cm
+[guide] says: right
+[guide] guiding  right 20  down 7  forward 20  dist 29 cm
+[guide] says: right
+[guide] guiding  right 20  down 7  forward 20  dist 29 cm
+[guide] says: right
+[guide] guiding  right 20  down 7  forward 20  dist 29 cm
+[guide] says: right
+[guide] guiding  right 20  down 7  forward 20  dist 29 cm
