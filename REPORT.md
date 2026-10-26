@@ -54,3 +54,5 @@ Derived only from what we observed:
 ## Reproduce
 
 See `README.md` for how to re-run. Raw data: `results.json`; per-repo logs: `logs/`.
+
+**Live re-run verification (2026-10-26):** Deepsint was re-tested end-to-end from a fresh clone in a clean venv — same commit (`4966afa`), same first failing command (`pip install blackbird-osint`, package still absent from PyPI), same documented source-install fix, app served HTTP 200, end-to-end search executed. Status reconfirmed: `RUNS WITH FIX`. Full command trail appended to `logs/deepsint.txt`.

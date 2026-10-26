@@ -51,3 +51,16 @@ Searching for username: octocat
     ▒██░█▀  ▒██░   ░██▄▄▄▄██ ▒▓▓▄ ▄██▒▓██ █▄ ▒██░█▀  ░██░▒██▀▀█▄  ░▓█▄   ▌
     ░▓█  ▀█▓░██████▒▓█   ▓██▒▒ ▓███▀ ░▒██▒ █▄░▓█  ▀█▓░██░░██▓ ▒██▒░▒████▓ 
 exit=1
+
+=== LIVE RE-RUN (2026-10-26, fresh clone, fresh venv) ===
+$ git clone https://github.com/Sai-sys-cmd/Deepsint  -> commit 4966afa8e99fb0ecf73c0e5964c3dcc95ee0974d (unchanged)
+$ python3 -m venv .venv && source .venv/bin/activate
+$ pip install streamlit                      -> exit 0
+$ pip install blackbird-osint                -> exit 1  (FIRST FAILING COMMAND, reproduced)
+  ERROR: Could not find a version that satisfies the requirement blackbird-osint (from versions: none)
+  ERROR: No matching distribution found for blackbird-osint
+--- fix (README's own Option 2, cloned into repo dir where run_blackbird.sh looks):
+$ git clone https://github.com/p1ngul1n0/blackbird && pip install -r blackbird/requirements.txt  -> exit 0
+$ streamlit run main.py                      -> serves HTTP 200 on :8501
+$ bash run_blackbird.sh octocat              -> "Found local Blackbird installation", search executed
+Result: status unchanged — RUNS WITH FIX.
